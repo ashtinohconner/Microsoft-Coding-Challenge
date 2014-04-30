@@ -53,7 +53,10 @@ public class NDrome {
 	// 121212|3|0
 	// 123456123456|6|1
 	
+	// string to hold the original line read in.
 	static String originalLine = "";
+	
+	// ArrayList to hold what is returned by the getPipe method.
 	static ArrayList<String> strings = new ArrayList<String>();
 	
 	/**
@@ -85,14 +88,21 @@ public class NDrome {
 		// while we can get a next line.
 		while ((line = br.readLine()) != null) 
 		{
-			strings = getPipe(line); // split the word at the pipe.
+			// split the word into two strings at the pipe.
+			strings = getPipe(line); 
 			
 			// check if the string is an NDrome
 			if(isNDrome(strings))
-				originalLine += "|1"; // add a |1 to the end since it is
+			{
+				// add a |1 to the end since it is
+				originalLine += "|1"; 
+			}
 			
 			else
-				originalLine += "|0"; // add a |0 since it is not
+			{
+				// add a |0 since it is not
+				originalLine += "|0"; 
+			}
 			
 			// print out the final result
 			System.out.println(originalLine);
@@ -114,6 +124,10 @@ public class NDrome {
 		String word = "";
 		String n = "";
 		
+		// iterate through the String looking for the | character.
+		// keeping track of where we are so we can get the number and the
+		// string before it.
+		
 		for(int i = 0; i < s.length(); i++)
 		{
 			char c = s.charAt(i);
@@ -130,12 +144,16 @@ public class NDrome {
 				}
 				
 				// Get the number immediately after the |
-				int j = i + 1;
-				char ch = s.charAt(j);
-				n += ch;
 				
-				//System.out.println(word);
-				//System.out.println(n);
+				// advance the iterator to skip over the |
+				int j = i + 1;
+				
+				// loop through the remaining characters and get the numbers
+				for(int l = j; l < s.length(); l++)
+				{
+					char ch = s.charAt(l);
+					n += ch;
+				}
 				
 				// Add the 2 strings to my list.
 				twoStrings.add(word);
@@ -145,13 +163,14 @@ public class NDrome {
 			
 		}
 		
-		//for(String k : twoStrings)
-			//System.out.println(k);
-		
 		return twoStrings;
 	}
 
-	
+	/**
+	 * Method to check whether the string is an NDrome or not.
+	 * 
+	 * @return true if the string is an NDrome, false otherwise.
+	 */
 	public static boolean isNDrome(ArrayList<String> s)
 	{
 		// place holders for the values in the array
